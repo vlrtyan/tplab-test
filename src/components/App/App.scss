@@ -1,4 +1,4 @@
-@import "../utils/styles.scss";
+@import "../../utils/styles.scss";
 
 body {
   font-family: Arial, sans-serif;
@@ -19,86 +19,6 @@ p {
   line-height: 1.05;
   color: $gray;
   margin: 0 auto 34px 0;
-}
-
-.search {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 26px;
-}
-
-.sort__header {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1;
-  color: $gray;
-}
-
-.sort {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  column-gap: 30px;
-}
-
-.sort__button {
-  color: #2A7BE4;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-  transition: $transition;
-
-  &:hover {
-    opacity: 0.5;
-  }
-}
-
-.sort__input {
-  display: none;
-}
-
-.search__bar {
-  width: 320px;
-  position: relative;
-}
-
-.search__input {
-  width: 100%;
-  outline: none;
-  border: 1px solid #d8e2ee;
-  border-radius: 18px;
-  padding: 10px 14px 10px 32px;
-  transition: $transition;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1;
-
-  &:focus {
-    border-color: $blue;
-  }
-}
-
-.search__button {
-  border: none;
-  background-color: transparent;
-  position: absolute;
-  left: 15px;
-  bottom: 12px;
-  background-image: url("../images/search-icon.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  padding: 0;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  transition: $transition;
-
-  &:hover {
-    opacity: 0.5;
-  }
 }
 
 .navigation {

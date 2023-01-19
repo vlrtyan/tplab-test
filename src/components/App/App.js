@@ -1,9 +1,13 @@
+import React from "react";
 import "./App.scss";
-import products from "../utils/products.json";
-import arrowLeft from "../images/arrow-left.svg";
-import arrowRight from "../images/arrow-right.svg";
+import productsData from "../../utils/products.json";
+import arrowLeft from "../../images/arrow-left.svg";
+import arrowRight from "../../images/arrow-right.svg";
+import SearchForm from "../SearchForm/SearchForm";
 
 function App() {
+  const [products, setProducts] = React.useState(productsData);
+
   const formatDate = (data) => {
     const date = new Date(data);
     const dd = () => {
@@ -25,26 +29,34 @@ function App() {
     return dd() + "." + mm() + "." + yyyy;
   };
 
+  const handleSearchItems = (input, sort) => {
+    const filteredProducts = productsData.filter((item) => {
+      return String(item.name.toLowerCase()).includes(input);
+    });
+    if (sort === "sortByName") {
+      setProducts(filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1)));
+    } else if (sort === "sortByViews") {
+      setProducts(
+        filteredProducts.sort((a, b) => (a.views > b.views ? 1 : -1))
+      );
+    } else if (sort === "sortByStart") {
+      setProducts(
+        filteredProducts.sort((a, b) => (new Date(a.start_date) > new Date (b.start_date) ? 1 : -1))
+      );
+    } else if (sort === "sortByEnd") {
+      setProducts(
+        filteredProducts.sort((a, b) => (new Date(a.end_date) > new Date(b.end_date) ? 1 : -1))
+      );
+    } else {
+      setProducts(filteredProducts);
+    }
+  };
+
   return (
     <main className="catalogue">
       <h1 className="catalogue__header">Карточки контента</h1>
-      <form className="search">
-        <div className="sort">
-          <p className="sort__header">Сортировать:</p>
-          <label className="sort__button">по названию</label>
-          <input className="sort__input"></input>
-          <label className="sort__button">по просмотрам</label>
-          <input className="sort__input"></input>
-          <label className="sort__button">по дате начала</label>
-          <input className="sort__input"></input>
-          <label className="sort__button">по дате окончания</label>
-          <input className="sort__input"></input>
-        </div>
-        <div className="search__bar">
-          <input className="search__input" />
-          <button className="search__button"></button>
-        </div>
-      </form>
+
+      <SearchForm onSearchItems={handleSearchItems} />
 
       <nav className="navigation">
         <button className="navigation__button navigation__button_type_arrow">
