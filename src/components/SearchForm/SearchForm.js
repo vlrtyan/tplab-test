@@ -10,10 +10,14 @@ function SearchForm(props) {
     setSearch(value.toLowerCase());
   };
   const handleSortChange = (e) => {
-    setSort(e.target.id);
-    props.onSearchItems(search, e.target.id);
-    e.target.checked = true;
-    Array.from(document.querySelectorAll('.sort__input')).forEach((input) => input.checked = false)
+    if (sort !== e.target.id) {
+      Array.from(document.querySelectorAll(".sort__input")).forEach(
+        (input) => (input.checked = false)
+      );
+      setSort(e.target.id);
+      props.onSearchItems(search, e.target.id);
+      e.target.checked = true;
+    }
   };
 
   const handleSearchSubmit = (e) => {
@@ -25,14 +29,20 @@ function SearchForm(props) {
     <form className="search" noValidate onSubmit={handleSearchSubmit}>
       <div className="sort">
         <p className="sort__header">Сортировать:</p>
+        <input
+          className="sort__input"
+          id="sortByName"
+          type="radio"
+          onChange={handleSortChange}
+          defaultChecked
+        />
         <label className="sort__button" htmlFor="sortByName">
           по названию
         </label>
         <input
           className="sort__input"
-          id="sortByName"
+          id="sortByViews"
           type="radio"
-          //   checked={sort}
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByViews">
@@ -40,9 +50,8 @@ function SearchForm(props) {
         </label>
         <input
           className="sort__input"
-          id="sortByViews"
+          id="sortByStart"
           type="radio"
-          //   checked={sort}
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByStart">
@@ -50,21 +59,13 @@ function SearchForm(props) {
         </label>
         <input
           className="sort__input"
-          id="sortByStart"
+          id="sortByEnd"
           type="radio"
-          //   checked={sort}
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByEnd">
           по дате окончания
         </label>
-        <input
-          className="sort__input"
-          id="sortByEnd"
-          type="radio"
-          //   checked={sort}
-          onChange={handleSortChange}
-        />
       </div>
       <div className="search__bar">
         <button className="search__button" type="submit"></button>

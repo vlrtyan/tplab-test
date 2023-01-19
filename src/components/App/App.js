@@ -6,7 +6,7 @@ import arrowRight from "../../images/arrow-right.svg";
 import SearchForm from "../SearchForm/SearchForm";
 
 function App() {
-  const [products, setProducts] = React.useState(productsData);
+  const [products, setProducts] = React.useState(productsData.sort((a, b) => (a.name > b.name ? 1 : -1)));
 
   const formatDate = (data) => {
     const date = new Date(data);
@@ -50,6 +50,7 @@ function App() {
     } else {
       setProducts(filteredProducts);
     }
+    if (filteredProducts.length === 0){alert('Ничего не найдено')};
   };
 
   return (
