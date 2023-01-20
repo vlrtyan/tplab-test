@@ -1,11 +1,11 @@
 import React from "react";
-import "./Main.scss"
+import "./Main.scss";
 import productsData from "../../utils/products.json";
 import arrowLeft from "../../images/arrow-left.svg";
 import arrowRight from "../../images/arrow-right.svg";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Main() {
+function Main(props) {
   const numberOfShownProducts = 3;
   const numberOfPages = Math.ceil(productsData.length / numberOfShownProducts);
 
@@ -94,6 +94,10 @@ function Main() {
     }
   };
 
+  const handleProductClick = (e) => {
+    props.onProductClick(e.currentTarget);
+  };
+
   return (
     <main className="catalogue">
       <h1 className="catalogue__header">Карточки контента</h1>
@@ -154,7 +158,7 @@ function Main() {
         </thead>
         <tbody>
           {products.map((product, index) => (
-            <tr key={index}>
+            <tr className="table__product" key={index} value={String(product.name.replace(/(\.|-|\/|\\| )/g, ''))} onClick={handleProductClick}>
               <td className="table__cell">
                 <img
                   className="table__image"
