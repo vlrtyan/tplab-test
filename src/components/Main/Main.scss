@@ -1,0 +1,133 @@
+@import "../../utils/styles.scss";
+
+p {
+  margin: 0;
+}
+
+.catalogue {
+  margin: 136px 122px 431px;
+}
+
+.catalogue__header {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.05;
+  color: $gray;
+  margin: 0 auto 34px 0;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+  column-gap: 8px;
+}
+
+.navigation__numbers {
+  max-width: 112px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+
+.navigation__button {
+  height: 32px;
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 1px 1.5px rgba(0, 0, 0, 0.07),
+    0px 2px 5px rgba(43, 45, 80, 0.08), 0px 0px 0px 1px rgba(43, 45, 80, 0.1);
+  transition: $transition;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  color: #4d5969;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.navigation__button_type_arrow {
+  background-color: #f9fafd;
+  width: 36px;
+}
+
+.navigation__button_type_number {
+  width: 32px;
+  flex-shrink: 0;
+  margin: 1px;
+
+  &:not(:last-of-type) {
+    margin-right: 6px;
+  }
+}
+
+.navigation__button_type_pressed {
+  color: $blue;
+  cursor: auto;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.navigation__img {
+  width: 8px;
+  height: 13px;
+  display: block;
+  margin: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__header-cell {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.31;
+  color: $gray;
+  padding: 9px 0;
+  text-align: left;
+  background-color: $light-blue;
+
+  &:nth-child(1) {
+    padding-left: 22px;
+    width: 80px;
+  }
+  &:nth-child(2) {
+    // max-width: 615px;
+    width: calc(100% - 80px - 151px - 124px - 123px);
+  }
+  &:nth-child(3) {
+    width: 151px;
+  }
+  &:nth-child(4) {
+    width: 124px;
+  }
+  &:nth-child(5) {
+    width: 123px;
+    padding-right: 52px;
+  }
+}
+
+.table__cell {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 0.93;
+  color: $gray;
+  padding: 0;
+  height: 74px;
+  border-bottom: 1px solid #d8e2ee;
+}
+
+.table__image {
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+}
