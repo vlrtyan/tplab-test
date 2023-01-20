@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 26px;
 }
 
@@ -12,13 +13,15 @@
   font-size: 16px;
   line-height: 1;
   color: $gray;
+  margin-right: 30px;
 }
 
 .sort {
   display: flex;
   flex-direction: row;
   align-items: center;
-  column-gap: 30px;
+  flex-wrap: wrap;
+  row-gap: 10px;
 }
 
 .sort__button {
@@ -27,8 +30,7 @@
   font-size: 16px;
   line-height: 1;
   transition: $transition;
-
-  
+  margin-right: 30px;
 }
 
 .sort__input {
@@ -84,5 +86,22 @@
 
   &:hover {
     opacity: 0.5;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .search {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .sort {
+    margin-top: 26px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search__bar {
+    width: 100%;
   }
 }

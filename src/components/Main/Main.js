@@ -31,7 +31,7 @@ function Main(props) {
       }
       return month;
     };
-    const yyyy = date.getFullYear();
+    const yyyy = window.innerWidth > 767 ? date.getFullYear() : date.getFullYear().toString().substr(-2);
 
     return dd() + "." + mm() + "." + yyyy;
   };

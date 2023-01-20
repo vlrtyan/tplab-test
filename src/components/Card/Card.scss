@@ -31,7 +31,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 40px;
-  margin: 0 80px;
+  margin: 0 80px 27px;
 }
 
 .card__discount {
@@ -53,7 +53,7 @@
 .card__body {
   margin: 0 80px 77px 90px;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 415px auto auto;
   grid-template-rows: 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
@@ -63,16 +63,15 @@
 
 .card__image {
   grid-area: image;
-  width: 415px;
-  height: 415px;
+  width: 100%;
+  max-height: 415px;
   object-fit: contain;
-  margin-right: 76px;
 }
 
 .card__name {
   grid-area: name;
   font-weight: 600;
-  font-size: 37.6651px;
+  font-size: 38px;
   line-height: 1.2;
   color: $gray;
   max-width: 539px;
@@ -123,7 +122,7 @@
 
 .star-wrapper__star {
   font-weight: 900;
-  font-size: 25.44px;
+  font-size: 25px;
   line-height: 1.05;
   color: #344050;
 }
@@ -136,4 +135,105 @@
   padding: 36px;
   text-align: center;
   background-color: rgba(217, 217, 217, 0.22);
+}
+
+@media screen and (max-width: 1279px) {
+  .card__container {
+    margin: 48px 48px 0;
+  }
+  .card__back-button {
+    margin-left: 48px;
+  }
+  .card__header {
+    margin: 0 40px 27px;
+
+  }
+  .card__body {
+    margin: 0 40px 77px;
+    grid-template-columns: 300px auto auto;
+  }
+  .card__image {
+    max-height: 300px;
+  }
+  .card__sum_type_new {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .card {
+    padding-bottom: 400px;
+  }
+  .card__container {
+    margin: 48px 24px 0;
+  }
+  .card__header {
+    margin: 0 20px 27px;
+
+  }
+  .card__body {
+    margin: 0 20px 77px;
+  }
+  .card__back-button {
+    margin-left: 24px;
+  }
+  .card__name {
+    font-size: 30px;
+  }
+  .card__sum_type_old {
+    font-size: 28px;
+  }
+  .card__sum_type_new {
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card {
+    padding-top: 26px;
+    padding-bottom: 125px;
+  }
+  .card__container {
+    margin: 48px 16px 0;
+  }
+  .card__header {
+    margin: 0 10px 27px;
+
+  }
+  .card__body {
+    margin: 0 10px 77px;
+    grid-template-columns: auto auto;
+    grid-template-rows: 150px auto auto;
+    grid-template-areas:
+    "image image"
+    "name name"
+    "before after";
+  }
+  .card__name {
+    margin: 40px 0;
+    font-size: 24px;
+  }
+  .card__back-button {
+    margin-left: 16px;
+  }
+  .card__image {
+    max-height: 150px;
+  }
+  .card__sum_type_old {
+    font-size: 20px;
+  }
+  .card__sum_type_new {
+    font-size: 24px;
+  }
+  .star-wrapper__star {
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1.05;
+    color: #344050;
+  }
+  .card__price {
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+  }
 }
