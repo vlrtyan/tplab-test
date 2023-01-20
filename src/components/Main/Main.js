@@ -4,9 +4,9 @@ import productsData from "../../utils/products.json";
 import arrowLeft from "../../images/arrow-left.svg";
 import arrowRight from "../../images/arrow-right.svg";
 import SearchForm from "../SearchForm/SearchForm";
+import { formatDate, numberOfShownProducts, removeSymbols } from "../../utils/constants";
 
 function Main(props) {
-  const numberOfShownProducts = 3;
   const numberOfPages = Math.ceil(productsData.length / numberOfShownProducts);
 
   const [products, setProducts] = React.useState(
@@ -14,52 +14,36 @@ function Main(props) {
       .slice(0, numberOfShownProducts)
       .sort((a, b) => (a.name > b.name ? 1 : -1))
   );
-
-  const formatDate = (data) => {
-    const date = new Date(data);
-    const dd = () => {
-      const day = date.getDate();
-      if (day < 10) {
-        return "0" + day;
-      }
-      return day;
-    };
-    const mm = () => {
-      const month = date.getMonth() + 1;
-      if (month < 10) {
-        return "0" + month;
-      }
-      return month;
-    };
-    const yyyy = window.innerWidth > 767 ? date.getFullYear() : date.getFullYear().toString().substr(-2);
-
-    return dd() + "." + mm() + "." + yyyy;
-  };
+  const [shownProducts, setShownProducts] = React.useState(products);
 
   const handleSearchItems = (input, sort) => {
     const filteredProducts = products.filter((item) => {
       return String(item.name.toLowerCase()).includes(input);
     });
     if (sort === "sortByName") {
-      setProducts(filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1)));
+      setShownProducts(
+        filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1))
+      );
     } else if (sort === "sortByViews") {
-      setProducts(
+      setShownProducts(
         filteredProducts.sort((a, b) => (a.views > b.views ? 1 : -1))
       );
     } else if (sort === "sortByStart") {
-      setProducts(
+      setShownProducts(
         filteredProducts.sort((a, b) =>
           new Date(a.start_date) > new Date(b.start_date) ? 1 : -1
         )
       );
     } else if (sort === "sortByEnd") {
-      setProducts(
+      setShownProducts(
         filteredProducts.sort((a, b) =>
           new Date(a.end_date) > new Date(b.end_date) ? 1 : -1
         )
       );
     } else {
-      setProducts(filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1)));
+      setShownProducts(
+        filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1))
+      );
     }
     if (filteredProducts.length === 0) {
       alert("Ничего не найдено");
@@ -74,11 +58,11 @@ function Main(props) {
     });
     const page = e.target.value;
     const productIndex = (page - 1) * 3;
-    setProducts(
-      productsData
-        .slice(productIndex, productIndex + numberOfShownProducts)
-        .sort((a, b) => (a.name > b.name ? 1 : -1))
-    );
+    const newProducts = productsData
+      .slice(productIndex, productIndex + numberOfShownProducts)
+      .sort((a, b) => (a.name > b.name ? 1 : -1));
+    setProducts(newProducts);
+    setShownProducts(newProducts);
     e.target.classList.add("navigation__button_type_pressed");
   };
 
@@ -157,8 +141,13 @@ function Main(props) {
           </tr>
         </thead>
         <tbody>
-          {products.map((product, index) => (
-            <tr className="table__product" key={index} value={String(product.name.replace(/(\.|-|\/|\\| )/g, ''))} onClick={handleProductClick}>
+          {shownProducts.map((product, index) => (
+            <tr
+              className="table__product"
+              key={index}
+              value={String(removeSymbols(product.name))}
+              onClick={handleProductClick}
+            >
               <td className="table__cell">
                 <img
                   className="table__image"

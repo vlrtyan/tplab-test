@@ -1,12 +1,13 @@
 import React from "react";
 import { useParams, NavLink } from "react-router-dom";
 import "./Card.scss";
+import { removeSymbols } from "../../utils/constants";
 
 function Card(props) {
   let { name } = useParams();
   let products = props.products;
   const product = products.find(
-    (product) => product.name.replace(/(\.|-|\/|\\| )/g, "") === name
+    (product) => removeSymbols(product.name) === name
   );
 
   return (

@@ -1,6 +1,14 @@
 $gray: #344050;
-$blue: #2A7BE4;
-$light-gray: #9DA8BA;
-$light-blue: #EDF2F8;
+$blue: #2a7be4;
+$light-gray: #9da8ba;
+$light-blue: #edf2f8;
+$red: #f63a3a;
 
 $transition: 0.5s;
+
+@mixin hover {
+  transition: 0.5s;
+  &:hover {
+    opacity: 0.5;
+  }
+}

@@ -25,12 +25,12 @@
 }
 
 .sort__button {
-  color: #2a7be4;
+  color: $blue;
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
-  transition: $transition;
   margin-right: 30px;
+  transition: $transition;
 }
 
 .sort__input {
@@ -42,7 +42,7 @@
   }
 
   &:checked + .sort__button {
-    color: #344050;
+    color: $gray;
   }
 }
 
@@ -82,11 +82,7 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
-  transition: $transition;
-
-  &:hover {
-    opacity: 0.5;
-  }
+  @include hover;
 }
 
 @media screen and (max-width: 1023px) {

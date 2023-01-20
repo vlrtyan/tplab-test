@@ -10,14 +10,10 @@
   font-weight: 900;
   font-size: 18px;
   line-height: 1.17;
-  color: #344050;
+  color: $gray;
   text-decoration: none;
   margin-left: 120px;
-  transition: $transition;
-
-  &:hover {
-    opacity: 0.5;
-  }
+  @include hover;
 }
 
 .card__container {
@@ -35,7 +31,7 @@
 }
 
 .card__discount {
-  background-color: #f63a3a;
+  background-color: $red;
   padding: 3px 27px 3px 7px;
   font-weight: 600;
   font-size: 22px;
@@ -106,12 +102,12 @@
 .card__sum_type_old {
   font-size: 32px;
   color: #94979c;
-  text-decoration: line-through red 3px;
+  text-decoration: line-through $red 3px;
 }
 
 .card__sum_type_new {
   font-size: 52px;
-  color: #344050;
+  color: $gray;
 }
 
 .star-wrapper {
@@ -124,7 +120,7 @@
   font-weight: 900;
   font-size: 25px;
   line-height: 1.05;
-  color: #344050;
+  color: $gray;
 }
 
 .card__disclaimer {
@@ -146,7 +142,6 @@
   }
   .card__header {
     margin: 0 40px 27px;
-
   }
   .card__body {
     margin: 0 40px 77px;
@@ -169,7 +164,6 @@
   }
   .card__header {
     margin: 0 20px 27px;
-
   }
   .card__body {
     margin: 0 20px 77px;
@@ -198,16 +192,15 @@
   }
   .card__header {
     margin: 0 10px 27px;
-
   }
   .card__body {
     margin: 0 10px 77px;
     grid-template-columns: auto auto;
     grid-template-rows: 150px auto auto;
     grid-template-areas:
-    "image image"
-    "name name"
-    "before after";
+      "image image"
+      "name name"
+      "before after";
   }
   .card__name {
     margin: 40px 0;
@@ -229,7 +222,7 @@
     font-weight: 900;
     font-size: 20px;
     line-height: 1.05;
-    color: #344050;
+    color: $gray;
   }
   .card__price {
     font-size: 16px;

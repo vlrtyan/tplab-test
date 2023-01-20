@@ -9,7 +9,6 @@ function App() {
 
   const handleProductClick = (product) => {
     navigate(product.getAttribute('value'));
-    console.log(product.getAttribute('value'))
   };
 
   return (
