@@ -25,6 +25,15 @@ function SearchForm(props) {
     props.onSearchItems(search, sort);
   };
 
+  React.useEffect(() => {
+
+    localStorage.getItem('sortCriterion') ?
+        document.getElementById(localStorage.getItem('sortCriterion')).checked = true :
+        document.getElementById('sortByName').checked = true;
+    localStorage.getItem('sortCriterion') && setSearch(localStorage.getItem('sortCriterion'));
+    localStorage.getItem('search') ? setSearch(localStorage.getItem('search')) : setSearch('');
+}, [])
+
   return (
     <form className="search" noValidate onSubmit={handleSearchSubmit}>
       <div className="sort">
@@ -34,7 +43,6 @@ function SearchForm(props) {
           id="sortByName"
           type="radio"
           onChange={handleSortChange}
-          defaultChecked
         />
         <label className="sort__button" htmlFor="sortByName">
           по названию

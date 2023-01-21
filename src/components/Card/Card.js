@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./Card.scss";
 import { removeSymbols } from "../../utils/constants";
 
@@ -12,9 +12,9 @@ function Card(props) {
 
   return (
     <main className="card">
-      <NavLink className="card__back-button" to="/">
+      <button className="card__back-button" type="button" onClick={props.onBack}>
         &#10094; Назад
-      </NavLink>
+      </button>
       <div className="card__container">
         <div className="card__header">
           <p className="card__discount">{`-${product.discount}%`}</p>

@@ -11,15 +11,19 @@ function App() {
     navigate(product.getAttribute('value'));
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  }
+
   return (
     <div className="page">
       <Routes>
         <Route
           exact
           path="/"
-          element={<Main onProductClick={handleProductClick} />}
+          element={<Main onProductClick={handleProductClick}/>}
         />
-        <Route path="/:name" element={<Card products={productsData} />} />
+        <Route path="/:name" element={<Card products={productsData} onBack={handleGoBack}  />} />
       </Routes>
     </div>
   );

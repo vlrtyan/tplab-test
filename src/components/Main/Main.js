@@ -4,10 +4,15 @@ import productsData from "../../utils/products.json";
 import arrowLeft from "../../images/arrow-left.svg";
 import arrowRight from "../../images/arrow-right.svg";
 import SearchForm from "../SearchForm/SearchForm";
-import { formatDate, numberOfShownProducts, removeSymbols } from "../../utils/constants";
+import {
+  formatDate,
+  numberOfShownProducts,
+  removeSymbols,
+} from "../../utils/constants";
 
 function Main(props) {
   const numberOfPages = Math.ceil(productsData.length / numberOfShownProducts);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const [products, setProducts] = React.useState(
     productsData
@@ -17,45 +22,32 @@ function Main(props) {
   const [shownProducts, setShownProducts] = React.useState(products);
 
   const handleSearchItems = (input, sort) => {
+    localStorage.setItem("search", input);
+    localStorage.setItem("sortCriterion", sort);
     const filteredProducts = products.filter((item) => {
       return String(item.name.toLowerCase()).includes(input);
     });
-    if (sort === "sortByName") {
-      setShownProducts(
-        filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1))
-      );
-    } else if (sort === "sortByViews") {
-      setShownProducts(
-        filteredProducts.sort((a, b) => (a.views > b.views ? 1 : -1))
-      );
-    } else if (sort === "sortByStart") {
-      setShownProducts(
-        filteredProducts.sort((a, b) =>
-          new Date(a.start_date) > new Date(b.start_date) ? 1 : -1
-        )
-      );
-    } else if (sort === "sortByEnd") {
-      setShownProducts(
-        filteredProducts.sort((a, b) =>
-          new Date(a.end_date) > new Date(b.end_date) ? 1 : -1
-        )
-      );
-    } else {
-      setShownProducts(
-        filteredProducts.sort((a, b) => (a.name > b.name ? 1 : -1))
-      );
-    }
+    const sortedProducts = filteredProducts.sort((a, b) => {
+      if (sort === "sortByName") {
+        return a.name > b.name ? 1 : -1;
+      } else if (sort === "sortByViews") {
+        return a.views > b.views ? 1 : -1;
+      } else if (sort === "sortByStart") {
+        return new Date(a.start_date) > new Date(b.start_date) ? 1 : -1;
+      } else if (sort === "sortByEnd") {
+        return new Date(a.end_date) > new Date(b.end_date) ? 1 : -1;
+      } else {
+        return a.name > b.name ? 1 : -1;
+      }
+    });
+    setShownProducts(sortedProducts);
+    localStorage.setItem("products", JSON.stringify(sortedProducts));
     if (filteredProducts.length === 0) {
       alert("Ничего не найдено");
     }
   };
 
   const handleNumberedButtonClick = (e) => {
-    Array.from(
-      document.querySelectorAll(".navigation__button_type_number")
-    ).forEach((button) => {
-      button.classList.remove("navigation__button_type_pressed");
-    });
     const page = e.target.value;
     const productIndex = (page - 1) * 3;
     const newProducts = productsData
@@ -63,7 +55,8 @@ function Main(props) {
       .sort((a, b) => (a.name > b.name ? 1 : -1));
     setProducts(newProducts);
     setShownProducts(newProducts);
-    e.target.classList.add("navigation__button_type_pressed");
+    setCurrentPage(page);
+    localStorage.setItem("numberedNavButton", page);
   };
 
   const handleArrowButtonClick = (e) => {
@@ -81,6 +74,36 @@ function Main(props) {
   const handleProductClick = (e) => {
     props.onProductClick(e.currentTarget);
   };
+
+  React.useEffect(() => {
+    const storedButtonIndex = localStorage.getItem("numberedNavButton") - 1;
+    const allButtons = Array.from(
+      document.querySelectorAll(".navigation__button_type_number")
+    );
+    const resetButtons = () => {
+      allButtons.forEach((button) => {
+        button.classList.remove("navigation__button_type_pressed");
+      });
+    };
+    if (localStorage.getItem("numberedNavButton")) {
+      resetButtons();
+      allButtons[storedButtonIndex].classList.add(
+        "navigation__button_type_pressed"
+      );
+    } else {
+      resetButtons();
+      allButtons[currentPage - 1].classList.add(
+        "navigation__button_type_pressed"
+      );
+    }
+  }, [currentPage]);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("products")) {
+      const storedProducts = JSON.parse(localStorage.getItem("products"));
+      setShownProducts(storedProducts);
+    }
+  }, []);
 
   return (
     <main className="catalogue">
