@@ -58,6 +58,8 @@ function Main(props) {
     setCurrentPage(page);
     localStorage.setItem("products", JSON.stringify(newProducts));
     localStorage.setItem("numberedNavButton", page);
+    localStorage.removeItem("sortCriterion");
+    localStorage.removeItem("search");
   };
 
   const handleArrowButtonClick = (e) => {
@@ -84,6 +86,7 @@ function Main(props) {
     const resetButtons = () => {
       allButtons.forEach((button) => {
         button.classList.remove("navigation__button_type_pressed");
+        button.disabled = false;
       });
     };
     if (localStorage.getItem("numberedNavButton")) {
@@ -91,11 +94,13 @@ function Main(props) {
       allButtons[storedButtonIndex].classList.add(
         "navigation__button_type_pressed"
       );
+      allButtons[storedButtonIndex].disabled = true;
     } else {
       resetButtons();
       allButtons[currentPage - 1].classList.add(
         "navigation__button_type_pressed"
       );
+      allButtons[currentPage - 1].disabled = true;
     }
   }, [currentPage]);
 

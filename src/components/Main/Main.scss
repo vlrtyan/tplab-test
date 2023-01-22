@@ -98,19 +98,16 @@ p {
 
   &:nth-child(1) {
     padding-left: 22px;
-    max-width: 80px;
-  }
-  &:nth-child(2) {
-    max-width: 615px;
+    width: 80px;
   }
   &:nth-child(3) {
-    max-width: 151px;
+    width: 151px;
   }
   &:nth-child(4) {
-    max-width: 124px;
+    width: 124px;
   }
   &:nth-child(5) {
-    max-width: 123px;
+    width: 123px;
     padding-right: 52px;
   }
 }

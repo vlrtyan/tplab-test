@@ -4,6 +4,8 @@ import "./SearchForm.scss";
 function SearchForm(props) {
   const [search, setSearch] = React.useState("");
   const [sort, setSort] = React.useState("");
+  const storedSort = localStorage.getItem("sortCriterion");
+  const storedInput = localStorage.getItem("search");
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -11,12 +13,8 @@ function SearchForm(props) {
   };
   const handleSortChange = (e) => {
     if (sort !== e.target.id) {
-      Array.from(document.querySelectorAll(".sort__input")).forEach(
-        (input) => (input.checked = false)
-      );
       setSort(e.target.id);
       props.onSearchItems(search, e.target.id);
-      e.target.checked = true;
     }
   };
 
@@ -26,13 +24,11 @@ function SearchForm(props) {
   };
 
   React.useEffect(() => {
-
-    localStorage.getItem('sortCriterion') ?
-        document.getElementById(localStorage.getItem('sortCriterion')).checked = true :
-        document.getElementById('sortByName').checked = true;
-    localStorage.getItem('sortCriterion') && setSearch(localStorage.getItem('sortCriterion'));
-    localStorage.getItem('search') ? setSearch(localStorage.getItem('search')) : setSearch('');
-}, [])
+    storedSort
+      ? document.getElementById(storedSort).checked = true
+      : document.getElementById("sortByName").checked = true
+    storedInput ? setSearch(storedInput) : setSearch("");
+  }, [storedSort, storedInput]);
 
   return (
     <form className="search" noValidate onSubmit={handleSearchSubmit}>
@@ -42,6 +38,7 @@ function SearchForm(props) {
           className="sort__input"
           id="sortByName"
           type="radio"
+          name="sort"
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByName">
@@ -51,6 +48,7 @@ function SearchForm(props) {
           className="sort__input"
           id="sortByViews"
           type="radio"
+          name="sort"
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByViews">
@@ -60,6 +58,7 @@ function SearchForm(props) {
           className="sort__input"
           id="sortByStart"
           type="radio"
+          name="sort"
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByStart">
@@ -69,6 +68,7 @@ function SearchForm(props) {
           className="sort__input"
           id="sortByEnd"
           type="radio"
+          name="sort"
           onChange={handleSortChange}
         />
         <label className="sort__button" htmlFor="sortByEnd">
