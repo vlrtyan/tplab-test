@@ -12,7 +12,7 @@ import {
 
 function Main(props) {
   const numberOfPages = Math.ceil(productsData.length / numberOfShownProducts);
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPageIndex, setCurrentPageIndex] = React.useState(0);
 
   const [products, setProducts] = React.useState(
     productsData
@@ -49,13 +49,13 @@ function Main(props) {
 
   const handleNumberedButtonClick = (e) => {
     const page = e.target.value;
-    const productIndex = (page - 1) * 3;
+    const productIndex = (page) * 3;
     const newProducts = productsData
       .slice(productIndex, productIndex + numberOfShownProducts)
       .sort((a, b) => (a.name > b.name ? 1 : -1));
     setProducts(newProducts);
     setShownProducts(newProducts);
-    setCurrentPage(page);
+    setCurrentPageIndex(page);
     localStorage.setItem("products", JSON.stringify(newProducts));
     localStorage.setItem("numberedNavButton", page);
     localStorage.removeItem("sortCriterion");
@@ -79,7 +79,7 @@ function Main(props) {
   };
 
   React.useEffect(() => {
-    const storedButtonIndex = localStorage.getItem("numberedNavButton") - 1;
+    const storedButtonIndex = localStorage.getItem("numberedNavButton");
     const allButtons = Array.from(
       document.querySelectorAll(".navigation__button_type_number")
     );
@@ -97,12 +97,12 @@ function Main(props) {
       allButtons[storedButtonIndex].disabled = true;
     } else {
       resetButtons();
-      allButtons[currentPage - 1].classList.add(
+      allButtons[currentPageIndex].classList.add(
         "navigation__button_type_pressed"
       );
-      allButtons[currentPage - 1].disabled = true;
+      allButtons[currentPageIndex].disabled = true;
     }
-  }, [currentPage]);
+  }, [currentPageIndex]);
 
   React.useEffect(() => {
     if (localStorage.getItem("products")) {
@@ -139,7 +139,7 @@ function Main(props) {
                 className="navigation__button navigation__button_type_number"
                 type="button"
                 key={index}
-                value={index + 1}
+                value={index}
                 onClick={handleNumberedButtonClick}
               >
                 {index + 1}
