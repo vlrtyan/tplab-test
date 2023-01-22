@@ -56,6 +56,7 @@ function Main(props) {
     setProducts(newProducts);
     setShownProducts(newProducts);
     setCurrentPage(page);
+    localStorage.setItem("products", JSON.stringify(newProducts));
     localStorage.setItem("numberedNavButton", page);
   };
 
@@ -101,6 +102,7 @@ function Main(props) {
   React.useEffect(() => {
     if (localStorage.getItem("products")) {
       const storedProducts = JSON.parse(localStorage.getItem("products"));
+      setProducts(storedProducts);
       setShownProducts(storedProducts);
     }
   }, []);
