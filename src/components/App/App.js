@@ -8,7 +8,7 @@ function App() {
   const navigate = useNavigate();
 
   const handleProductClick = (product) => {
-    navigate(product.getAttribute('value'));
+    navigate(product.getAttribute("value"));
   };
 
   const handleGoBack = () => {

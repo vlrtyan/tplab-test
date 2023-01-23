@@ -41,7 +41,7 @@ function Main(props) {
       }
     });
     setShownProducts(sortedProducts);
-    localStorage.setItem("products", JSON.stringify(sortedProducts));
+    localStorage.setItem("searchResult", JSON.stringify(sortedProducts));
     if (filteredProducts.length === 0) {
       alert("Ничего не найдено");
     }
@@ -49,7 +49,7 @@ function Main(props) {
 
   const handleNumberedButtonClick = (e) => {
     const page = e.target.value;
-    const productIndex = (page) * 3;
+    const productIndex = page * 3;
     const newProducts = productsData
       .slice(productIndex, productIndex + numberOfShownProducts)
       .sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -57,6 +57,7 @@ function Main(props) {
     setShownProducts(newProducts);
     setCurrentPageIndex(page);
     localStorage.setItem("products", JSON.stringify(newProducts));
+    localStorage.setItem("searchResult", JSON.stringify(newProducts));
     localStorage.setItem("numberedNavButton", page);
     localStorage.removeItem("sortCriterion");
     localStorage.removeItem("search");
@@ -106,8 +107,10 @@ function Main(props) {
 
   React.useEffect(() => {
     if (localStorage.getItem("products")) {
-      const storedProducts = JSON.parse(localStorage.getItem("products"));
-      setProducts(storedProducts);
+      setProducts(JSON.parse(localStorage.getItem("products")));
+    }
+    if (localStorage.getItem("searchResult")) {
+      const storedProducts = JSON.parse(localStorage.getItem("searchResult"));
       setShownProducts(storedProducts);
     }
   }, []);

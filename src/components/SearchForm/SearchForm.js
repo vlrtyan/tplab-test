@@ -4,7 +4,7 @@ import "./SearchForm.scss";
 function SearchForm(props) {
   const [search, setSearch] = React.useState("");
   const [sort, setSort] = React.useState("");
-  const storedSort = localStorage.getItem("sortCriterion");
+  const storedSortCriterion = localStorage.getItem("sortCriterion");
   const storedInput = localStorage.getItem("search");
 
   const handleSearchChange = (e) => {
@@ -12,10 +12,8 @@ function SearchForm(props) {
     setSearch(value.toLowerCase());
   };
   const handleSortChange = (e) => {
-    if (sort !== e.target.id) {
-      setSort(e.target.id);
-      props.onSearchItems(search, e.target.id);
-    }
+    setSort(e.target.id);
+    props.onSearchItems(search, e.target.id);
   };
 
   const handleSearchSubmit = (e) => {
@@ -24,11 +22,12 @@ function SearchForm(props) {
   };
 
   React.useEffect(() => {
-    storedSort
-      ? document.getElementById(storedSort).checked = true
-      : document.getElementById("sortByName").checked = true
+    Array.from(document.querySelectorAll(".sort__input")).forEach((i) => i.checked = false);
+    storedSortCriterion
+      ? (document.getElementById(storedSortCriterion).checked = true)
+      : (document.getElementById("sortByName").checked = true);
     storedInput ? setSearch(storedInput) : setSearch("");
-  }, [storedSort, storedInput]);
+  }, [storedSortCriterion, storedInput]);
 
   return (
     <form className="search" noValidate onSubmit={handleSearchSubmit}>
