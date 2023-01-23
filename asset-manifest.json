@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/tplab-test/static/css/main.fcd947b9.css",
-    "main.js": "/tplab-test/static/js/main.41d3c023.js",
+    "main.js": "/tplab-test/static/js/main.52aa95f8.js",
     "static/media/search-icon.svg": "/tplab-test/static/media/search-icon.326245b9c2676d6bdfa7.svg",
     "index.html": "/tplab-test/index.html",
     "static/media/arrow-right.svg": "/tplab-test/static/media/arrow-right.f5e90b1e411c968fa524589fe7cc28fe.svg",
     "static/media/arrow-left.svg": "/tplab-test/static/media/arrow-left.5d12619cff5fc3e2b7814dea2dc6438d.svg",
     "main.fcd947b9.css.map": "/tplab-test/static/css/main.fcd947b9.css.map",
-    "main.41d3c023.js.map": "/tplab-test/static/js/main.41d3c023.js.map"
+    "main.52aa95f8.js.map": "/tplab-test/static/js/main.52aa95f8.js.map"
   },
   "entrypoints": [
     "static/css/main.fcd947b9.css",
-    "static/js/main.41d3c023.js"
+    "static/js/main.52aa95f8.js"
   ]
 }
