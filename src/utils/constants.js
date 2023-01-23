@@ -23,7 +23,7 @@ const formatDate = (data) => {
   return dd() + "." + mm() + "." + yyyy;
 };
 const numberOfShownProducts = 3;
-//удалить тире, точки, слеши, пробелы
+// удалить тире, точки, слеши, пробелы
 const removeSymbols = (str) => {
   return str.replace(/(\.|-|\/|\\| )/g, "");
 }
