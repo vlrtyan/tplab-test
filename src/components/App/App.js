@@ -19,10 +19,10 @@ function App() {
     <div className="page">
       <Switch>
         <Route exact path="/">
-          <Main onProductClick={handleProductClick} />
+          <Main productsData={productsData} onProductClick={handleProductClick} />
         </Route>
-        <Route path="/:name">
-          <Card products={productsData} onBack={handleGoBack}/>
+        <Route path="/:id">
+          <Card productsData={productsData} onBack={handleGoBack} />
         </Route>
       </Switch>
     </div>

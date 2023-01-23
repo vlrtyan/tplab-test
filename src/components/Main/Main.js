@@ -1,6 +1,5 @@
 import React from "react";
 import "./Main.scss";
-import productsData from "../../utils/products.json";
 import arrowLeft from "../../images/arrow-left.svg";
 import arrowRight from "../../images/arrow-right.svg";
 import SearchForm from "../SearchForm/SearchForm";
@@ -12,17 +11,16 @@ import {
 
 function Main(props) {
   const numberOfPages = Math.ceil(
-    productsData.length / numberOfShownProducts
+    props.productsData.length / numberOfShownProducts
   );
+  const initialProducts = props.productsData
+    .slice(0, numberOfShownProducts)
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
 
   const [currentPageIndex, setCurrentPageIndex] = React.useState(0);
 
-  const [products, setProducts] = React.useState(
-    productsData
-      .slice(0, numberOfShownProducts)
-      .sort((a, b) => (a.name > b.name ? 1 : -1))
-  );
-  const [shownProducts, setShownProducts] = React.useState(products);
+  const [products, setProducts] = React.useState([]);
+  const [shownProducts, setShownProducts] = React.useState([]);
 
   const handleSearchItems = (input, sort) => {
     localStorage.setItem("search", input);
@@ -61,7 +59,7 @@ function Main(props) {
   const handleNumberedButtonClick = (e) => {
     const page = e.target.value;
     const productIndex = page * 3;
-    const newProducts = productsData
+    const newProducts = props.productsData
       .slice(productIndex, productIndex + numberOfShownProducts)
       .sort((a, b) => (a.name > b.name ? 1 : -1));
     setProducts(newProducts);
@@ -96,9 +94,13 @@ function Main(props) {
     }
     if (localStorage.getItem("products")) {
       setProducts(JSON.parse(localStorage.getItem("products")));
+    } else {
+      setProducts(initialProducts);
     }
     if (localStorage.getItem("searchResult")) {
       setShownProducts(JSON.parse(localStorage.getItem("searchResult")));
+    } else {
+      setShownProducts(initialProducts)
     }
   }, []);
 
@@ -127,6 +129,7 @@ function Main(props) {
             .map((btn, index) => (
               <button
                 className={buttonClass(index)}
+                disabled={index === Number(currentPageIndex) ? true : false}
                 type="button"
                 key={index}
                 value={index}
