@@ -21,7 +21,7 @@ function Card(props) {
       </button>
       <div className="card__container">
         <div className="card__header">
-          {product.discount != 0 && <p className="card__discount">{`-${product.discount}%`}</p>}
+          {Number(product.discount) !== 0 && <p className="card__discount">{`-${product.discount}%`}</p>}
           {product.logo_url && <img className="card__logo" src={product.logo_url} alt="" />}
         </div>
         <div className="card__body">
