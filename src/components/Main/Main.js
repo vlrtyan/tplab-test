@@ -11,7 +11,10 @@ import {
 } from "../../utils/constants";
 
 function Main(props) {
-  const numberOfPages = Math.ceil(productsData.length / numberOfShownProducts);
+  const numberOfPages = Math.ceil(
+    productsData.length / numberOfShownProducts
+  );
+
   const [currentPageIndex, setCurrentPageIndex] = React.useState(0);
 
   const [products, setProducts] = React.useState(
@@ -44,6 +47,14 @@ function Main(props) {
     localStorage.setItem("searchResult", JSON.stringify(sortedProducts));
     if (filteredProducts.length === 0) {
       alert("Ничего не найдено");
+    }
+  };
+
+  const buttonClass = (index) => {
+    if (index === Number(currentPageIndex)) {
+      return "navigation__button navigation__button_type_number navigation__button_type_pressed";
+    } else {
+      return "navigation__button navigation__button_type_number";
     }
   };
 
@@ -80,38 +91,14 @@ function Main(props) {
   };
 
   React.useEffect(() => {
-    const storedButtonIndex = localStorage.getItem("numberedNavButton");
-    const allButtons = Array.from(
-      document.querySelectorAll(".navigation__button_type_number")
-    );
-    const resetButtons = () => {
-      allButtons.forEach((button) => {
-        button.classList.remove("navigation__button_type_pressed");
-        button.disabled = false;
-      });
-    };
     if (localStorage.getItem("numberedNavButton")) {
-      resetButtons();
-      allButtons[storedButtonIndex].classList.add(
-        "navigation__button_type_pressed"
-      );
-      allButtons[storedButtonIndex].disabled = true;
-    } else {
-      resetButtons();
-      allButtons[currentPageIndex].classList.add(
-        "navigation__button_type_pressed"
-      );
-      allButtons[currentPageIndex].disabled = true;
+      setCurrentPageIndex(localStorage.getItem("numberedNavButton"));
     }
-  }, [currentPageIndex]);
-
-  React.useEffect(() => {
     if (localStorage.getItem("products")) {
       setProducts(JSON.parse(localStorage.getItem("products")));
     }
     if (localStorage.getItem("searchResult")) {
-      const storedProducts = JSON.parse(localStorage.getItem("searchResult"));
-      setShownProducts(storedProducts);
+      setShownProducts(JSON.parse(localStorage.getItem("searchResult")));
     }
   }, []);
 
@@ -137,9 +124,9 @@ function Main(props) {
         <div className="navigation__numbers">
           {Array(numberOfPages)
             .fill(true)
-            .map((page, index) => (
+            .map((btn, index) => (
               <button
-                className="navigation__button navigation__button_type_number"
+                className={buttonClass(index)}
                 type="button"
                 key={index}
                 value={index}
