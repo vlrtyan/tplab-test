@@ -45,9 +45,11 @@
 }
 
 .card__logo {
+  margin: 0 0 0 auto;
   width: 160px;
   height: 77px;
   object-fit: contain;
+  align-self: flex-end;
 }
 
 .card__body {
