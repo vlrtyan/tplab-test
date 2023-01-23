@@ -1,30 +1,30 @@
 import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Main from "../Main/Main";
 import Card from "../Card/Card";
 import productsData from "../../utils/products.json";
 
 function App() {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleProductClick = (product) => {
-    navigate(product.getAttribute("value"));
+    history.push(product.getAttribute("value"));
   };
 
   const handleGoBack = () => {
-    navigate(-1);
-  }
+    history.goBack();
+  };
 
   return (
     <div className="page">
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={<Main onProductClick={handleProductClick}/>}
-        />
-        <Route path="/:name" element={<Card products={productsData} onBack={handleGoBack}  />} />
-      </Routes>
+      <Switch>
+        <Route exact path="/">
+          <Main onProductClick={handleProductClick} />
+        </Route>
+        <Route path="/:name">
+          <Card products={productsData} onBack={handleGoBack}/>
+        </Route>
+      </Switch>
     </div>
   );
 }
