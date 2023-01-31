@@ -10,25 +10,26 @@ import {
 } from "../../utils/constants";
 
 function Main(props) {
-  const numberOfPages = Math.ceil(
-    props.productsData.length / numberOfShownProducts
-  );
   const initialProducts = props.productsData
     .slice(0, numberOfShownProducts)
     .sort((a, b) => (a.name > b.name ? 1 : -1));
 
   const [currentPageIndex, setCurrentPageIndex] = React.useState(0);
 
-  const [products, setProducts] = React.useState([]);
+  const [sortedProducts, setSortedProducts] = React.useState(props.productsData);
   const [shownProducts, setShownProducts] = React.useState([]);
+  const [currentData, setCurrentData] = React.useState([]);
+
+
+  const numberOfPages = Math.ceil(
+    currentData.length / numberOfShownProducts
+  );
 
   const handleSearchItems = (input, sort) => {
     localStorage.setItem("search", input);
     localStorage.setItem("sortCriterion", sort);
-    const filteredProducts = products.filter((item) => {
-      return String(item.name.toLowerCase()).includes(input);
-    });
-    const sortedProducts = filteredProducts.sort((a, b) => {
+    const sortedData = props.productsData.sort((a, b) => {
+      setCurrentPageIndex(0);
       if (sort === "sortByName") {
         return a.name > b.name ? 1 : -1;
       } else if (sort === "sortByViews") {
@@ -41,8 +42,12 @@ function Main(props) {
         return a.name > b.name ? 1 : -1;
       }
     });
-    setShownProducts(sortedProducts);
-    localStorage.setItem("searchResult", JSON.stringify(sortedProducts));
+    const filteredProducts = sortedProducts.filter((item) => {
+      return String(item.name.toLowerCase()).includes(input);
+    });
+    setCurrentData(filteredProducts);
+    setSortedProducts(sortedData);
+    setShownProducts(filteredProducts.slice(0, numberOfShownProducts));
     if (filteredProducts.length === 0) {
       alert("Ничего не найдено");
     }
@@ -59,17 +64,13 @@ function Main(props) {
   const handleNumberedButtonClick = (e) => {
     const page = e.target.value;
     const productIndex = page * 3;
-    const newProducts = props.productsData
+    const newProducts = currentData
       .slice(productIndex, productIndex + numberOfShownProducts)
       .sort((a, b) => (a.name > b.name ? 1 : -1));
-    setProducts(newProducts);
     setShownProducts(newProducts);
     setCurrentPageIndex(page);
     localStorage.setItem("products", JSON.stringify(newProducts));
-    localStorage.setItem("searchResult", JSON.stringify(newProducts));
     localStorage.setItem("numberedNavButton", page);
-    localStorage.removeItem("sortCriterion");
-    localStorage.removeItem("search");
   };
 
   const handleArrowButtonClick = (e) => {
@@ -91,16 +92,6 @@ function Main(props) {
   React.useEffect(() => {
     if (localStorage.getItem("numberedNavButton")) {
       setCurrentPageIndex(localStorage.getItem("numberedNavButton"));
-    }
-    if (localStorage.getItem("products")) {
-      setProducts(JSON.parse(localStorage.getItem("products")));
-    } else {
-      setProducts(initialProducts);
-    }
-    if (localStorage.getItem("searchResult")) {
-      setShownProducts(JSON.parse(localStorage.getItem("searchResult")));
-    } else {
-      setShownProducts(initialProducts)
     }
   }, []);
 
