@@ -6,9 +6,6 @@ import { removeSymbols } from "../../utils/constants";
 function Card(props) {
   let {id} = useParams();
   let products = props.productsData;
-  products.forEach((element) => {
-    console.log(String(removeSymbols(element.name)), id);
-  });
   const product = products.find(
     (product) => String(removeSymbols(product.name)) === id
   );

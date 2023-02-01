@@ -6,8 +6,6 @@ import {
   } from "../../utils/constants";
 
 function Catalogue(props) {
-  
-
   const handleProductClick = (e) => {
     props.onProductClick(e.currentTarget);
   };

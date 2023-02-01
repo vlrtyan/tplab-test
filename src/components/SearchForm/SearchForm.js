@@ -22,10 +22,11 @@ function SearchForm(props) {
   };
 
   React.useEffect(() => {
-    Array.from(document.querySelectorAll(".sort__input")).forEach((i) => i.checked = false);
+    storedSortCriterion ? setSort(storedSortCriterion) : setSort("sortByName");
     storedSortCriterion
       ? (document.getElementById(storedSortCriterion).checked = true)
       : (document.getElementById("sortByName").checked = true);
+
     storedInput ? setSearch(storedInput) : setSearch("");
   }, [storedSortCriterion, storedInput]);
 

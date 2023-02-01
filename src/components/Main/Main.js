@@ -6,10 +6,6 @@ import Catalogue from "../Catalogue/Catalogue";
 import { numberOfShownProducts } from "../../utils/constants";
 
 function Main(props) {
-  // const initialProducts = props.productsData
-  //   .slice(0, numberOfShownProducts)
-  //   .sort((a, b) => (a.name > b.name ? 1 : -1));
-
   const [currentPageIndex, setCurrentPageIndex] = React.useState(0);
 
   const [shownProducts, setShownProducts] = React.useState([]);
@@ -21,18 +17,19 @@ function Main(props) {
   const handleSearchItems = (input, sort) => {
     localStorage.setItem("search", input);
     localStorage.setItem("sortCriterion", sort);
+    setCurrentPageIndex(0);
     const sortedData = props.productsData.sort((a, b) => {
-      setCurrentPageIndex(0);
-      if (sort === "sortByName") {
-        return a.name > b.name ? 1 : -1;
-      } else if (sort === "sortByViews") {
-        return a.views > b.views ? 1 : -1;
-      } else if (sort === "sortByStart") {
-        return new Date(a.start_date) > new Date(b.start_date) ? 1 : -1;
-      } else if (sort === "sortByEnd") {
-        return new Date(a.end_date) > new Date(b.end_date) ? 1 : -1;
-      } else {
-        return a.name > b.name ? 1 : -1;
+      switch (sort) {
+        case "sortByName":
+          return a.name > b.name ? 1 : -1;
+        case "sortByViews":
+          return a.views > b.views ? 1 : -1;
+        case "sortByStart":
+          return new Date(a.start_date) > new Date(b.start_date) ? 1 : -1;
+        case "sortByEnd":
+          return new Date(a.end_date) > new Date(b.end_date) ? 1 : -1;
+        default:
+          return a.name > b.name ? 1 : -1;
       }
     });
     const filteredProducts = sortedProducts.filter((item) => {
@@ -41,19 +38,18 @@ function Main(props) {
     setCurrentData(filteredProducts);
     setSortedProducts(sortedData);
     setShownProducts(filteredProducts.slice(0, numberOfShownProducts));
+    localStorage.setItem("storedProducts", JSON.stringify(filteredProducts));
     if (filteredProducts.length === 0) {
       alert("Ничего не найдено");
     }
   };
 
   const handleNumberedButtonClick = (page) => {
-    const productIndex = page * 3;
+    const productIndex = page * numberOfShownProducts;
     const newProducts = currentData
-      .slice(productIndex, productIndex + numberOfShownProducts)
-      .sort((a, b) => (a.name > b.name ? 1 : -1));
+      .slice(productIndex, productIndex + numberOfShownProducts);
     setShownProducts(newProducts);
     setCurrentPageIndex(page);
-    localStorage.setItem("products", JSON.stringify(newProducts));
     localStorage.setItem("numberedNavButton", page);
   };
 
@@ -69,10 +65,18 @@ function Main(props) {
   };
 
   React.useEffect(() => {
-    if (localStorage.getItem("numberedNavButton")) {
-      setCurrentPageIndex(localStorage.getItem("numberedNavButton"));
+    const storedProducts = JSON.parse(localStorage.getItem("storedProducts"));
+    const storedPage = Number(localStorage.getItem("numberedNavButton"));
+    const productIndex = storedPage * numberOfShownProducts;
+    storedPage ? setCurrentPageIndex(storedPage) : setCurrentPageIndex(0);
+    if (storedProducts) {
+      setCurrentData(storedProducts);
+      setShownProducts(storedProducts.slice(productIndex, productIndex + numberOfShownProducts))
+    } else {
+      setCurrentData(props.productsData);
+      setShownProducts(props.productsData.slice(0, numberOfShownProducts))
     }
-  }, []);
+  }, [props.productsData]);
 
   return (
     <main className="catalogue">
