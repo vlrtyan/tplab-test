@@ -17,6 +17,7 @@ function Main(props) {
   const handleSearchItems = (input, sort) => {
     localStorage.setItem("search", input);
     localStorage.setItem("sortCriterion", sort);
+    localStorage.setItem("numberedNavButton", 0);
     setCurrentPageIndex(0);
     const sortedData = props.productsData.sort((a, b) => {
       switch (sort) {
