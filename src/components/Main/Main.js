@@ -54,17 +54,6 @@ function Main(props) {
     localStorage.setItem("numberedNavButton", page);
   };
 
-  const handleArrowButtonClick = (buttonType) => {
-    const carousel = document.querySelector(".navigation__numbers");
-    const button = document.querySelector(".navigation__button_type_number");
-    const buttonWidth = button.clientWidth + 9;
-    if (buttonType === "rightArrowButton") {
-      carousel.scrollLeft += buttonWidth;
-    } else if (buttonType === "leftArrowButton") {
-      carousel.scrollLeft -= buttonWidth;
-    }
-  };
-
   React.useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("storedProducts"));
     const storedPage = Number(localStorage.getItem("numberedNavButton"));
@@ -85,7 +74,6 @@ function Main(props) {
       <SearchForm onSearchItems={handleSearchItems} />
       <Navigation
         currentData={currentData}
-        onArrowClick={handleArrowButtonClick}
         onNumberClick={handleNumberedButtonClick}
         currentPageIndex={currentPageIndex}
       />

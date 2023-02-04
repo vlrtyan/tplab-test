@@ -4,20 +4,21 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 12px;
-    column-gap: 8px;
+    margin-bottom: 6px;
   }
   
   .navigation__numbers {
-    max-width: 112px;
     display: flex;
     flex-direction: row;
     align-items: center;
     overflow: hidden;
+    max-width: 140px;
+    margin: 0;
   }
   
   .navigation__button {
     height: 32px;
+    width: 36px;
     background-color: transparent;
     border-radius: 2px;
     border: 1px solid white;
@@ -33,16 +34,15 @@
   
   .navigation__button_type_arrow {
     background-color: #f9fafd;
-    width: 36px;
   }
   
   .navigation__button_type_number {
-    width: 32px;
     flex-shrink: 0;
-    margin: 1px;
-  
-    &:not(:last-of-type) {
-      margin-right: 6px;
+    margin: 8px;
+    margin-right: 0;
+    
+    &:last-of-type {
+      margin-right: 8px;
     }
   }
   
@@ -56,8 +56,9 @@
   }
   
   .navigation__img {
-    width: 8px;
-    height: 13px;
+    width: 10px;
+    height: 16px;
     display: block;
-    margin: auto;
+    margin: 0 auto;
+    object-fit: contain;
   }
