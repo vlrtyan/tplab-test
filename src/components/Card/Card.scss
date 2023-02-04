@@ -16,8 +16,6 @@
   border: none;
   padding: 0;
   margin-left: 120px;
-  @include hover;
-  cursor: pointer;
 }
 
 .card__container {
@@ -185,6 +183,13 @@
   }
   .card__sum_type_new {
     font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card__back-button {
+    @include hover;
+    cursor: pointer;
   }
 }
 

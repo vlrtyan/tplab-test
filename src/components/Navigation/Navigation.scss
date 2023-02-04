@@ -1,62 +1,67 @@
 @import "../../utils/styles.scss";
 
 .navigation {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navigation__numbers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  max-width: 124px;
+  padding: 8px;
+}
+
+.navigation__button {
+  height: 32px;
+  width: 36px;
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1px solid white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 1px 1.5px rgba(0, 0, 0, 0.07),
+    0px 2px 5px rgba(43, 45, 80, 0.08), 0px 0px 0px 1px rgba(43, 45, 80, 0.1);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  color: #4d5969;
+  padding: 0;
+}
+
+.navigation__button_type_arrow {
+  background-color: #f9fafd;
+}
+
+.navigation__button_type_number {
+  flex-shrink: 0;
+
+  &:not(:last-of-type) {
+    margin-right: 8px;
   }
-  
-  .navigation__numbers {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow: hidden;
-    max-width: 124px;
-    padding: 8px;
+}
+
+.navigation__button_type_pressed {
+  color: $blue;
+  cursor: auto;
+
+  &:hover {
+    opacity: 1;
   }
-  
+}
+
+.navigation__img {
+  width: 10px;
+  height: 16px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 768px) {
   .navigation__button {
-    height: 32px;
-    width: 36px;
-    background-color: transparent;
-    border-radius: 2px;
-    border: 1px solid white;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 1px 1.5px rgba(0, 0, 0, 0.07),
-      0px 2px 5px rgba(43, 45, 80, 0.08), 0px 0px 0px 1px rgba(43, 45, 80, 0.1);
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1;
-    text-align: center;
-    color: #4d5969;
     cursor: pointer;
     @include hover;
   }
-  
-  .navigation__button_type_arrow {
-    background-color: #f9fafd;
-  }
-  
-  .navigation__button_type_number {
-    flex-shrink: 0;
-
-    &:not(:last-of-type) {
-      margin-right: 8px;
-    }
-  }
-  
-  .navigation__button_type_pressed {
-    color: $blue;
-    cursor: auto;
-  
-    &:hover {
-      opacity: 1;
-    }
-  }
-  
-  .navigation__img {
-    width: 10px;
-    height: 16px;
-    display: block;
-    margin: 0 auto;
-    object-fit: contain;
-  }
+}

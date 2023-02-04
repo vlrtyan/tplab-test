@@ -38,11 +38,6 @@
   }
 }
 
-.table__product {
-  cursor: pointer;
-  @include hover;
-}
-
 .table__cell {
   font-weight: 500;
   font-size: 14px;
@@ -60,6 +55,13 @@
   height: 40px;
   display: block;
   margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .table__product {
+    cursor: pointer;
+    @include hover;
+  }
 }
 
 @media screen and (max-width: 767px) {
