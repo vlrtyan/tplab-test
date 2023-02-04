@@ -4,14 +4,18 @@ import "./SearchForm.scss";
 function SearchForm(props) {
   const [search, setSearch] = React.useState("");
   const [sort, setSort] = React.useState("");
-  const [isButtonActive, setButtonActive] = React.useState(true);
+  const [isButtonActive, setButtonActive] = React.useState(false);
   const storedSortCriterion = localStorage.getItem("sortCriterion");
   const storedInput = localStorage.getItem("search");
 
   const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearch(value.toLowerCase());
-    value === search ? setButtonActive(true) : setButtonActive(false);
+    const value = e.target.value.toLowerCase();
+    setSearch(value);
+    if (value === '') {
+      setButtonActive(false);
+    } else {
+      setButtonActive(true);
+    }
   };
   const handleSortChange = (e) => {
     setSort(e.target.id);
@@ -21,7 +25,7 @@ function SearchForm(props) {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     props.onSearchItems(search, sort);
-    setButtonActive(true);
+    setButtonActive(false);
   };
 
   React.useEffect(() => {
@@ -79,7 +83,11 @@ function SearchForm(props) {
         </label>
       </div>
       <div className="search__bar">
-        <button className="search__button" type="submit" disabled={isButtonActive} ></button>
+        <button
+          className="search__button"
+          type="submit"
+          disabled={!isButtonActive}
+        ></button>
         <input
           className="search__input"
           type="text"
