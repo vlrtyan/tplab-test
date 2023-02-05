@@ -101,17 +101,41 @@
 .card__sum {
   font-weight: 600;
   line-height: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.card__sum_name_kopeck {
+  font-size: 18px;
+  line-height: 0.92;
 }
 
 .card__sum_type_old {
   font-size: 32px;
   color: #94979c;
-  text-decoration: line-through $red 3px;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 3px;
+    background: $red;
+    content: "";
+    width: 100%;
+    display: block;
+  }
 }
 
 .card__sum_type_new {
   font-size: 52px;
   color: $gray;
+}
+
+.card__price_type_new .card__sum_name_kopeck {
+  font-size: 29px;
+  line-height: 0.92;
 }
 
 .star-wrapper {
