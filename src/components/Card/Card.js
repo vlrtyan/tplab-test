@@ -11,7 +11,7 @@ function Card(props) {
   );
 
   const price = (priceType) => {
-    const separator = "," && ".";
+    const separator = /\.|,/;
     priceType = String(priceType);
     return (
       <>

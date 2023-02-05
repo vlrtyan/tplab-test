@@ -104,6 +104,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  margin-bottom: 10px;
 }
 
 .card__sum_name_kopeck {
@@ -142,6 +143,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .star-wrapper__star {
@@ -149,6 +151,10 @@
   font-size: 25px;
   line-height: 1.05;
   color: $gray;
+
+  &:not(:last-of-type) {
+    margin-right: 5px;
+  }
 }
 
 .card__disclaimer {
