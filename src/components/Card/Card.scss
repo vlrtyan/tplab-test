@@ -16,6 +16,8 @@
   border: none;
   padding: 0;
   margin-left: 120px;
+  cursor: pointer;
+  @include hover;
 }
 
 .card__container {
